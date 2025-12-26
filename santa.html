@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>산타 할아버지의 편지</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Hi+Melody&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a472a; /* Deep Christmas Green */
+            overflow-x: hidden;
+        }
+        
+        .handwritten {
+            font-family: 'Hi Melody', cursive;
+        }
+
+        .title-font {
+            font-family: 'Gamja Flower', cursive;
+        }
+
+        /* Snow Effect */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .paper-texture {
+            background-color: #fff9e6;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4c5a0' fill-opacity='0.1'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' /%3E%3C/g%3E%3C/svg%3E");
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .stamp {
+            border: 3px double #c0392b;
+            color: #c0392b;
+            border-radius: 50%;
+            transform: rotate(-15deg);
+            mask-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGFuZkVudHVyYmxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMSIgbnVtT2N0YXZlcz0iMSIgc3RpdGNoVGlsZXM9Im5vU3RpdGNoIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuNSIvPjwvc3ZnPg==");
+        }
+
+        /* Ribbon CSS */
+        .ribbon {
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            z-index: 20;
+        }
+        .ribbon::before,
+        .ribbon::after {
+            position: absolute;
+            z-index: -1;
+            content: '';
+            display: block;
+            border: 5px solid #a31c1c;
+        }
+        .ribbon span {
+            position: absolute;
+            display: block;
+            width: 225px;
+            padding: 15px 0;
+            background-color: #d63031;
+            box-shadow: 0 5px 10px rgba(0,0,0,.1);
+            color: #fff;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            text-shadow: 0 1px 1px rgba(0,0,0,.2);
+            text-transform: uppercase;
+            text-align: center;
+            left: -25px;
+            top: 30px;
+            transform: rotate(45deg);
+        }
+
+        /* Modal Animation */
+        .modal-enter {
+            animation: modalPop 0.3s ease-out forwards;
+        }
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 relative">
+
+    <!-- Snow container -->
+    <div id="snow-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Main Letter Card -->
+    <div class="paper-texture relative max-w-2xl w-full rounded-lg p-8 md:p-12 z-10 transform rotate-1 transition-transform hover:rotate-0 duration-300">
+        
+        <!-- Ribbon -->
+        <div class="ribbon"><span>SPECIAL DELIVERY</span></div>
+
+        <!-- Header -->
+        <div class="text-center mb-8 border-b-2 border-red-800 pb-6 border-dashed">
+            <div class="inline-block bg-red-800 text-white rounded-full p-4 mb-4 shadow-lg">
+                <i class="fas fa-sleigh fa-3x"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl text-red-800 font-bold title-font mb-2">North Pole Mail</h1>
+            <p class="text-green-800 font-bold uppercase tracking-widest text-sm">Official Correspondence from Santa Claus</p>
+        </div>
+
+        <!-- Body Content -->
+        <div class="handwritten text-xl md:text-2xl text-gray-800 leading-relaxed space-y-6">
+            <p class="font-bold text-3xl text-red-700">사랑하는 진아, 진오, 진서에게,</p>
+            
+            <p>
+                허허허! 안녕? 산타 할아버지란다.<br>
+                크리스마스에 선물을 눈빠지게 기다렸을 텐데,<br>
+                할아버지가 조금 늦게 도착해서 정말 미안하구나.
+            </p>
+
+            <p>
+                사실 오는 길에 북극에 엄청난 눈보라가 몰아쳤지 뭐니!<br>
+                앞이 캄캄해서 루돌프 코도 잘 안 보일 정도였단다.<br>
+                게다가 올해는 우리 친구들이 착한 일을 너무 많이 해서<br>
+                썰매가 선물로 가득 차 평소보다 훨씬 무거웠어.
+            </p>
+
+            <p>
+                조금 늦었지만, 할아버지는 절대 너를 잊지 않았단다.<br>
+                오히려 늦은 만큼 더 특별한 마법 가루를 뿌려서<br>
+                행운이 가득 담긴 선물을 준비했지!
+            </p>
+
+            <p>
+                내년에도 지금처럼 씩씩하고 착한 아이로 자라주렴.<br>
+                늦었지만, <span class="text-red-600 font-bold">메리 크리스마스!</span>
+            </p>
+        </div>
+
+        <!-- Footer / Signature -->
+        <div class="mt-12 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <!-- Stamp -->
+            <div class="stamp w-32 h-32 flex items-center justify-center border-4 border-double border-red-700 text-red-700 rounded-full opacity-80 rotate-12">
+                <div class="text-center">
+                    <i class="fas fa-check-circle text-2xl mb-1"></i>
+                    <p class="font-bold text-sm uppercase">Checked Twice</p>
+                    <p class="font-bold text-xs">NICE LIST</p>
+                </div>
+            </div>
+
+            <!-- Signature -->
+            <div class="text-center md:text-right">
+                <p class="handwritten text-3xl text-gray-700 mb-2">사랑을 담아서,</p>
+                <div class="font-serif italic text-4xl text-red-800 font-bold transform -rotate-6">Santa Claus</div>
+            </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="mt-10 text-center">
+            <button onclick="showGift()" class="bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105 flex items-center justify-center mx-auto gap-2 text-lg">
+                <i class="fas fa-gift animate-bounce"></i>
+                특별 선물 확인하기
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Hidden Message Modal -->
+    <div id="giftModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center relative modal-enter shadow-2xl">
+            <button onclick="closeGift()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div class="mb-4 text-yellow-500">
+                <i class="fas fa-star fa-4x animate-spin-slow"></i>
+            </div>
+            <h3 class="title-font text-3xl font-bold text-red-600 mb-2">짜잔!</h3>
+            <p class="handwritten text-2xl text-gray-700 mb-6">
+                너의 2026년은<br>
+                매일매일이 선물 같은 날이 될 거야!<br>
+                행복한 새해 맞이하렴!
+            </p>
+            <button onclick="closeGift()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition">
+                고마워요 산타 할아버지!
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Snow generation
+        function createSnow() {
+            const container = document.getElementById('snow-container');
+            const snowflakeCount = 50;
+
+            for (let i = 0; i < snowflakeCount; i++) {
+                const flake = document.createElement('div');
+                flake.classList.add('snowflake');
+                flake.innerHTML = '<i class="fas fa-snowflake"></i>';
+                
+                // Randomize position and animation properties
+                const left = Math.random() * 100;
+                const duration = Math.random() * 5 + 5; // 5-10s
+                const size = Math.random() * 10 + 10; // 10-20px
+                const delay = Math.random() * 5;
+
+                flake.style.left = `${left}vw`;
+                flake.style.animationDuration = `${duration}s`;
+                flake.style.fontSize = `${size}px`;
+                flake.style.opacity = Math.random() * 0.5 + 0.3;
+                flake.style.animationDelay = `-${delay}s`; // Start at different times
+
+                container.appendChild(flake);
+            }
+        }
+
+        // Modal Logic
+        function showGift() {
+            const modal = document.getElementById('giftModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Trigger confetti effect via simple particles (simplified for single file)
+            createConfetti();
+        }
+
+        function closeGift() {
+            const modal = document.getElementById('giftModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function createConfetti() {
+            // A simple visual burst could go here, but the modal is enough for now.
+            // Just playing a sound logic (simulated)
+            console.log("Magic sound effect!"); 
+        }
+
+        // Initialize
+        window.onload = createSnow;
+    </script>
+</body>
+</html>
